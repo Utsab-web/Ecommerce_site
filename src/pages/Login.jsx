@@ -10,11 +10,10 @@ function Login() {
   return (
     <>
       <section className="flex justify-center items-center min-h-screen bg-black">
-        
-        {/* same gradient card */}
+      
         <div className="bg-[linear-gradient(163deg,#00ff75_0%,#3700ff_100%)] rounded-[22px] transition-all duration-300 hover:shadow-[0px_0px_30px_1px_rgba(0,255,117,0.3)]">
           
-          {/* inner card */}
+
           <div className="transition-all duration-200 hover:scale-[0.98] hover:rounded-[20px]">
             
             <form
