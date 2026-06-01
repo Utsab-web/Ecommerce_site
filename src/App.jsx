@@ -1,4 +1,5 @@
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import './index.css'
 import { Routes, Route } from "react-router";
 
@@ -6,7 +7,10 @@ function App() {
   
   return (
     <>
-      <Login />
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
     </>
   )
 }

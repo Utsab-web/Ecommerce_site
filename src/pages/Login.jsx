@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 function Login() {
   const field =
     "flex items-center justify-center gap-[0.5em] rounded-[25px] p-[0.6em] border-none outline-none text-white bg-[#171717] shadow-[inset_2px_5px_10px_rgb(5,5,5)]";
@@ -10,17 +12,12 @@ function Login() {
   return (
     <>
       <section className="flex justify-center items-center min-h-screen bg-black">
-      
-        <div className="bg-[linear-gradient(163deg,#00ff75_0%,#3700ff_100%)] rounded-[22px] transition-all duration-300 hover:shadow-[0px_0px_30px_1px_rgba(0,255,117,0.3)]">
-          
-
+        <div className="bg-[#0f9] rounded-[22px] transition-all duration-300 hover:shadow-[0px_0px_30px_1px_rgba(0,255,117,0.3)]">
           <div className="transition-all duration-200 hover:scale-[0.98] hover:rounded-[20px]">
-            
             <form
               id="form"
               className="flex flex-col gap-2.5 pl-[2em] pr-[2em] pb-[0.4em] bg-[#171717] rounded-[25px] transition-all duration-[0.4s] ease-in-out"
             >
-              
               <p
                 id="heading"
                 className="text-center m-[2em] text-white text-[1.2em]"
@@ -47,12 +44,11 @@ function Login() {
                   placeholder="Username"
                   autoComplete="off"
                 />
-              </div>
-
+              </div>  
               {/* Password */}
               <div className={field}>
                 <svg
-                  viewBox="0 0 16 16"
+                  viewBox="1 0 16 16"
                   fill="currentColor"
                   height={16}
                   width={16}
@@ -71,28 +67,22 @@ function Login() {
 
               {/* Buttons */}
               <div className="flex justify-center flex-row mt-[2.5em]">
-                
-                <button
-                  className="p-[0.5em] pl-[1.1em] pr-[1.1em] rounded-[5px] mr-[0.5em] border-none outline-none transition-all duration-[0.4s] ease-in-out bg-[#252525] text-white hover:bg-black"
-                >
+                <button className="p-[0.5em] pl-[1.1em] pr-[1.1em] rounded-[5px] mr-[0.5em] border-none outline-none transition-all duration-[0.4s] ease-in-out bg-[#252525] text-white hover:bg-black">
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </button>
-
-                <button
+                {/* Sign Up Button */}
+                <Link
+                  to="/signup"
                   className="p-[0.5em] pl-[2.3em] pr-[2.3em] rounded-[5px] border-none outline-none transition-all duration-[0.4s] ease-in-out bg-[#252525] text-white hover:bg-black"
                 >
                   Sign Up
-                </button>
-
+                </Link>
               </div>
 
               {/* Forgot Password */}
-              <button
-                className="mb-[3em] p-[0.5em] rounded-[5px] border-none outline-none transition-all duration-[0.4s] ease-in-out bg-[#252525] text-white hover:bg-red-500"
-              >
+              <button className="mb-[3em] p-[0.5em] rounded-[5px] border-none outline-none transition-all duration-[0.4s] ease-in-out bg-[#252525] text-white hover:bg-red-500">
                 Forgot Password
               </button>
-
             </form>
           </div>
         </div>
