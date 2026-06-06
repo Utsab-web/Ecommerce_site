@@ -68,7 +68,7 @@ function Login() {
                   />
                 </div>
                 {errors.username && (
-                  <span className="text-red-500 text-[0.8em] mt-[0.2em]">
+                  <span className="text-red-500 text-[1em] mt-[0.3em]">
                     {errors.username.message}
                   </span>
                 )}
@@ -107,7 +107,7 @@ function Login() {
                 </svg>
                 </div>
                 {errors.password && (
-                  <span className="text-red-500 text-[0.8em] mt-[0.2em]">
+                  <span className="text-red-500 text-[1em] mt-[0.3em]">
                     {errors.password.message}
                   </span>
                 )}

@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import {useState} from 'react'
+import { useState } from "react";
 function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -45,175 +45,197 @@ function Signup() {
               </p>
 
               {/* Username */}
-              <div className={field}>
-                <svg
-                  viewBox="0 0 16 16"
-                  fill="currentColor"
-                  height={16}
-                  width={16}
-                  xmlns="http://www.w3.org/2000/svg"
-                  className={input_icon}
-                >
-                  <path d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914z" />
-                </svg>
+              <div>
+                <div className={field}>
+                  <svg
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    height={16}
+                    width={16}
+                    xmlns="http://www.w3.org/2000/svg"
+                    className={input_icon}
+                  >
+                    <path d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914z" />
+                  </svg>
 
-                <input
-                  type="text"
-                  className={input_field}
-                  placeholder="Username"
-                  autoComplete="off"
-                  {...register("username", {
-                    required: "Username is required",
-                  })}
-                />
+                  <input
+                    type="text"
+                    className={input_field}
+                    placeholder="Username"
+                    autoComplete="off"
+                    {...register("username", {
+                      required: "Username is required",
+                    })}
+                  />
+                </div>
+                {errors.username && (
+                  <span className="text-red-500 text-[1em] mt-[0.3em]">
+                    {errors.username.message}
+                  </span>
+                )}
               </div>
-              {errors.username && (
-                <span className="text-red-500 text-[0.8em] mt-[0.2em]">
-                  {errors.username.message}
-                </span>
-               )} 
 
               {/* Email */}
-              <div className={field}>
-                <svg
-                  viewBox="4 4 16 16"
-                  fill="currentColor"
-                  height={16}
-                  width={16}
-                  xmlns="http://www.w3.org/2000/svg"
-                  className={input_icon}
-                >
-                  <path
-                    d="M4 7L10.94 11.3375C11.5885 11.7428 12.4115 11.7428 13.06 11.3375L20 7M5 18H19C20.1046 18 21 17.1046 21 16V8C21 6.89543 20.1046 6 19 6H5C3.89543 6 3 6.89543 3 8V16C3 17.1046 3.89543 18 5 18Z"
-                    stroke="#000000"
-                    stroke-width="1"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                </svg>
-                <input
-                  type="email"
-                  className={input_field}
-                  {...register("email", {
-                    required: "Email is required",
-                    pattern: {
-                      value:
-                        /^(?!.*\.\.)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}$/,
-                      message: "Invalid email address",
-                    },
-                  })}
-                  placeholder="Email"
-                  autoComplete="off"
-                />
+              <div>
+                <div className={field}>
+                  <svg
+                    viewBox="4 4 16 16"
+                    fill="currentColor"
+                    height={16}
+                    width={16}
+                    xmlns="http://www.w3.org/2000/svg"
+                    className={input_icon}
+                  >
+                    <path
+                      d="M4 7L10.94 11.3375C11.5885 11.7428 12.4115 11.7428 13.06 11.3375L20 7M5 18H19C20.1046 18 21 17.1046 21 16V8C21 6.89543 20.1046 6 19 6H5C3.89543 6 3 6.89543 3 8V16C3 17.1046 3.89543 18 5 18Z"
+                      stroke="#000000"
+                      stroke-width="1"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                  </svg>
+                  <input
+                    type="email"
+                    className={input_field}
+                    {...register("email", {
+                      required: "Email is required",
+                      pattern: {
+                        value:
+                          /^(?!.*\.\.)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}$/,
+                        message: "Invalid email address",
+                      },
+                    })}
+                    placeholder="Email"
+                    autoComplete="off"
+                  />
+                </div>
+                {errors.email && (
+                  <span className="text-red-500 text-[1em] mt-[0.3em]">
+                    {errors.email.message}
+                  </span>
+                )}
               </div>
-              {errors.email && (
-                <span className="text-red-500 text-[0.8em] mt-[0.2em]">
-                  {errors.email.message}
-                </span>
-              )}    
 
               {/* Password */}
-              <div className={field}>
-                <svg
-                  viewBox="0 0 16 16"
-                  fill="currentColor"
-                  height={16}
-                  width={16}
-                  xmlns="http://www.w3.org/2000/svg"
-                  className={input_icon}
-                >
-                  <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
-                </svg>
+              <div>
+                <div className={field}>
+                  <svg
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    height={16}
+                    width={16}
+                    xmlns="http://www.w3.org/2000/svg"
+                    className={input_icon}
+                  >
+                    <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
+                  </svg>
 
-                <input
-                  type={showPassword ? "text" : "password"}
-                  className={input_field}
-                  {...register("password", {
-                    required: "Password is required",
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    className={input_field}
+                    {...register("password", {
+                      required: "Password is required",
 
-                    validate: {
-                      minLength: (v) =>
-                        v.length >= 8 || "Must be at least 8 characters",
+                      validate: {
+                        minLength: (v) =>
+                          v.length >= 8 || "Must be at least 8 characters",
 
-                      hasLowercase: (v) =>
-                        /[a-z]/.test(v) || "Must include a lowercase letter",
+                        hasLowercase: (v) =>
+                          /[a-z]/.test(v) || "Must include a lowercase letter",
 
-                      hasUppercase: (v) =>
-                        /[A-Z]/.test(v) || "Must include an uppercase letter",
+                        hasUppercase: (v) =>
+                          /[A-Z]/.test(v) || "Must include an uppercase letter",
 
-                      hasNumber: (v) => /\d/.test(v) || "Must include a number",
+                        hasNumber: (v) =>
+                          /\d/.test(v) || "Must include a number",
 
-                      hasSpecialChar: (v) =>
-                        /[!@#$%^&*(),.?":{}|<>]/.test(v) ||
-                        "Must include a special character",
+                        hasSpecialChar: (v) =>
+                          /[!@#$%^&*(),.?":{}|<>]/.test(v) ||
+                          "Must include a special character",
 
-                      noSpaces: (v) => !/\s/.test(v) || "No spaces allowed",
-                    },
-                  })}
-                  placeholder="Password"
-                />
-                <svg
-                  onClick={() => setShowPassword(!showPassword)}
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 64 64"
-                  className="w-5 h-5 fill-white"
-                >
-                  <path d="M32,15C11.169,15,0.769,30.242,0.336,30.891c-0.448,0.672-0.448,1.547,0,2.219C0.769,33.758,11.169,49,32,49 s31.231-15.242,31.664-15.891c0.448-0.672,0.448-1.547,0-2.219C63.231,30.242,52.831,15,32,15z M32,45 C16.493,45,7.234,35.322,4.512,31.996C7.225,28.663,16.436,19,32,19c15.507,0,24.766,9.678,27.488,13.004 C56.775,35.337,47.564,45,32,45z"></path>{" "}
-                  <path d="M32,23c-4.963,0-9,4.038-9,9s4.037,9,9,9s9-4.038,9-9S36.963,23,32,23z M32,37c-2.757,0-5-2.243-5-5s2.243-5,5-5 s5,2.243,5,5S34.757,37,32,37z"></path>{" "}
-                </svg>
+                        noSpaces: (v) => !/\s/.test(v) || "No spaces allowed",
+                      },
+                    })}
+                    placeholder="Password"
+                  />
+                  <svg
+                    onClick={() => setShowPassword(!showPassword)}
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 64 64"
+                    className="w-5 h-5 fill-white"
+                  >
+                    <path d="M32,15C11.169,15,0.769,30.242,0.336,30.891c-0.448,0.672-0.448,1.547,0,2.219C0.769,33.758,11.169,49,32,49 s31.231-15.242,31.664-15.891c0.448-0.672,0.448-1.547,0-2.219C63.231,30.242,52.831,15,32,15z M32,45 C16.493,45,7.234,35.322,4.512,31.996C7.225,28.663,16.436,19,32,19c15.507,0,24.766,9.678,27.488,13.004 C56.775,35.337,47.564,45,32,45z"></path>{" "}
+                    <path d="M32,23c-4.963,0-9,4.038-9,9s4.037,9,9,9s9-4.038,9-9S36.963,23,32,23z M32,37c-2.757,0-5-2.243-5-5s2.243-5,5-5 s5,2.243,5,5S34.757,37,32,37z"></path>{" "}
+                  </svg>
+                </div>
+                {errors.password && (
+                  <span className="text-red-500 text-[1em] mt-[0.3em]">
+                    {errors.password.message}
+                  </span>
+                )}
               </div>
-              {errors.password && (
-                <span className="text-red-500 text-[0.8em] mt-[0.2em]">
-                  {errors.password.message}
-                </span>
-              )}
 
               {/*Confirm Password */}
-              <div className={field} {...register("confirm_password", {
-                required: "Confirm Password is required",
-                validate: (value) =>
-                  value === watch("password") || "Passwords do not match",
-              })}>
-                <svg
-                  viewBox="0 0 16 16"
-                  fill="currentColor"
-                  height={16}
-                  width={16}
-                  xmlns="http://www.w3.org/2000/svg"
-                  className={input_icon}
+              <div>
+                <div
+                  className={field}
+                  {...register("confirm_password", {
+                    required: "Confirm Password is required",
+                    validate: (value) =>
+                      value === watch("password") || "Passwords do not match",
+                  })}
                 >
-                  <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
-                </svg>
+                  <svg
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    height={16}
+                    width={16}
+                    xmlns="http://www.w3.org/2000/svg"
+                    className={input_icon}
+                  >
+                    <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
+                  </svg>
 
-                <input
-                  type={showPassword ? "text" : "password"}
-                  className={input_field}
-                  placeholder="Confirm Password"
-                />
-                <svg
-                  onClick={() => setShowPassword(!showPassword)}
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 64 64"
-                  className="w-5 h-5 fill-white"
-                >
-                  <path d="M32,15C11.169,15,0.769,30.242,0.336,30.891c-0.448,0.672-0.448,1.547,0,2.219C0.769,33.758,11.169,49,32,49 s31.231-15.242,31.664-15.891c0.448-0.672,0.448-1.547,0-2.219C63.231,30.242,52.831,15,32,15z M32,45 C16.493,45,7.234,35.322,4.512,31.996C7.225,28.663,16.436,19,32,19c15.507,0,24.766,9.678,27.488,13.004 C56.775,35.337,47.564,45,32,45z"></path>{" "}
-                  <path d="M32,23c-4.963,0-9,4.038-9,9s4.037,9,9,9s9-4.038,9-9S36.963,23,32,23z M32,37c-2.757,0-5-2.243-5-5s2.243-5,5-5 s5,2.243,5,5S34.757,37,32,37z"></path>{" "}
-                </svg>
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    className={input_field}
+                    placeholder="Confirm Password"
+                  />
+                  <svg
+                    onClick={() => setShowPassword(!showPassword)}
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 64 64"
+                    className="w-5 h-5 fill-white"
+                  >
+                    <path d="M32,15C11.169,15,0.769,30.242,0.336,30.891c-0.448,0.672-0.448,1.547,0,2.219C0.769,33.758,11.169,49,32,49 s31.231-15.242,31.664-15.891c0.448-0.672,0.448-1.547,0-2.219C63.231,30.242,52.831,15,32,15z M32,45 C16.493,45,7.234,35.322,4.512,31.996C7.225,28.663,16.436,19,32,19c15.507,0,24.766,9.678,27.488,13.004 C56.775,35.337,47.564,45,32,45z"></path>{" "}
+                    <path d="M32,23c-4.963,0-9,4.038-9,9s4.037,9,9,9s9-4.038,9-9S36.963,23,32,23z M32,37c-2.757,0-5-2.243-5-5s2.243-5,5-5 s5,2.243,5,5S34.757,37,32,37z"></path>{" "}
+                  </svg>
+                </div>
+                {errors.confirm_password && (
+                  <span className="text-red-500 text-[1em] mt-[0.3em]">
+                    {errors.confirm_password.message}
+                  </span>
+                )}
               </div>
-              {errors.confirm_password && (
-                <span className="text-red-500 text-[0.8em] mt-[0.2em]">
-                  {errors.confirm_password.message}
-                </span>
-              )}  
 
               {/* Signup Button */}
-              <div className="flex justify-center flex-row mt-[1em] mb-[1.5em]">
-                <button  type="submit"
+              <div className="flex flex-row gap-2 mt-[1em] mb-[1.5em]">
+                <button
+                  type="submit"
                   className="p-[0.5em] pl-[2.3em] pr-[2.3em] rounded-[5px] border-none outline-none transition-all duration-[0.4s] ease-in-out bg-[#252525] text-white hover:bg-black"
                 >
                   Sign Up
+                </button>
+
+                {/* Login Button */}
+                <button
+                  type="button"
+                  onClick={() => navigate("/login")}
+                  className="p-[0.5em] pl-[2.3em] pr-[2.3em] rounded-[5px] border-none outline-none transition-all duration-[0.4s] ease-in-out bg-[#252525] text-white hover:bg-black"
+                >
+                  Login
                 </button>
               </div>
             </form>
