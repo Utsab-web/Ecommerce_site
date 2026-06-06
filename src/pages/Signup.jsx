@@ -1,5 +1,23 @@
-import { Link } from "react-router";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
+import {useState} from 'react'
 function Signup() {
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    watch,
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+    reset();
+    navigate("/Login");
+  };
+
   const field =
     "flex items-center justify-center gap-[0.5em] rounded-[25px] p-[0.6em] border-none outline-none text-white bg-[#171717] shadow-[inset_2px_5px_10px_rgb(5,5,5)]";
 
@@ -14,6 +32,7 @@ function Signup() {
         <div className="bg-[#0f9] rounded-[22px] transition-all duration-300 hover:shadow-[0px_0px_30px_1px_rgba(0,255,117,0.3)]">
           <div className="transition-all duration-200 hover:scale-[0.98] hover:rounded-[20px]">
             <form
+              onSubmit={handleSubmit(onSubmit)}
               id="form"
               className="flex flex-col gap-2.5 pl-[2em] pr-[2em] pb-[0.4em] bg-[#171717] rounded-[25px] transition-all duration-[0.4s] ease-in-out"
             >
@@ -43,8 +62,16 @@ function Signup() {
                   className={input_field}
                   placeholder="Username"
                   autoComplete="off"
+                  {...register("username", {
+                    required: "Username is required",
+                  })}
                 />
               </div>
+              {errors.username && (
+                <span className="text-red-500 text-[0.8em] mt-[0.2em]">
+                  {errors.username.message}
+                </span>
+               )} 
 
               {/* Email */}
               <div className={field}>
@@ -67,10 +94,23 @@ function Signup() {
                 <input
                   type="email"
                   className={input_field}
+                  {...register("email", {
+                    required: "Email is required",
+                    pattern: {
+                      value:
+                        /^(?!.*\.\.)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}$/,
+                      message: "Invalid email address",
+                    },
+                  })}
                   placeholder="Email"
                   autoComplete="off"
                 />
               </div>
+              {errors.email && (
+                <span className="text-red-500 text-[0.8em] mt-[0.2em]">
+                  {errors.email.message}
+                </span>
+              )}    
 
               {/* Password */}
               <div className={field}>
@@ -86,11 +126,34 @@ function Signup() {
                 </svg>
 
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   className={input_field}
+                  {...register("password", {
+                    required: "Password is required",
+
+                    validate: {
+                      minLength: (v) =>
+                        v.length >= 8 || "Must be at least 8 characters",
+
+                      hasLowercase: (v) =>
+                        /[a-z]/.test(v) || "Must include a lowercase letter",
+
+                      hasUppercase: (v) =>
+                        /[A-Z]/.test(v) || "Must include an uppercase letter",
+
+                      hasNumber: (v) => /\d/.test(v) || "Must include a number",
+
+                      hasSpecialChar: (v) =>
+                        /[!@#$%^&*(),.?":{}|<>]/.test(v) ||
+                        "Must include a special character",
+
+                      noSpaces: (v) => !/\s/.test(v) || "No spaces allowed",
+                    },
+                  })}
                   placeholder="Password"
                 />
                 <svg
+                  onClick={() => setShowPassword(!showPassword)}
                   fill="currentColor"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 64 64"
@@ -100,9 +163,18 @@ function Signup() {
                   <path d="M32,23c-4.963,0-9,4.038-9,9s4.037,9,9,9s9-4.038,9-9S36.963,23,32,23z M32,37c-2.757,0-5-2.243-5-5s2.243-5,5-5 s5,2.243,5,5S34.757,37,32,37z"></path>{" "}
                 </svg>
               </div>
+              {errors.password && (
+                <span className="text-red-500 text-[0.8em] mt-[0.2em]">
+                  {errors.password.message}
+                </span>
+              )}
 
               {/*Confirm Password */}
-              <div className={field}>
+              <div className={field} {...register("confirm_password", {
+                required: "Confirm Password is required",
+                validate: (value) =>
+                  value === watch("password") || "Passwords do not match",
+              })}>
                 <svg
                   viewBox="0 0 16 16"
                   fill="currentColor"
@@ -115,11 +187,12 @@ function Signup() {
                 </svg>
 
                 <input
-                  type="confirm_password"
+                  type={showPassword ? "text" : "password"}
                   className={input_field}
                   placeholder="Confirm Password"
                 />
                 <svg
+                  onClick={() => setShowPassword(!showPassword)}
                   fill="currentColor"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 64 64"
@@ -129,15 +202,19 @@ function Signup() {
                   <path d="M32,23c-4.963,0-9,4.038-9,9s4.037,9,9,9s9-4.038,9-9S36.963,23,32,23z M32,37c-2.757,0-5-2.243-5-5s2.243-5,5-5 s5,2.243,5,5S34.757,37,32,37z"></path>{" "}
                 </svg>
               </div>
+              {errors.confirm_password && (
+                <span className="text-red-500 text-[0.8em] mt-[0.2em]">
+                  {errors.confirm_password.message}
+                </span>
+              )}  
 
               {/* Signup Button */}
               <div className="flex justify-center flex-row mt-[1em] mb-[1.5em]">
-                <Link
-                  to="/"
+                <button  type="submit"
                   className="p-[0.5em] pl-[2.3em] pr-[2.3em] rounded-[5px] border-none outline-none transition-all duration-[0.4s] ease-in-out bg-[#252525] text-white hover:bg-black"
                 >
                   Sign Up
-                </Link>
+                </button>
               </div>
             </form>
           </div>
