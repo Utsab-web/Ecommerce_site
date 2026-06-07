@@ -2,8 +2,16 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import {useState} from 'react'
 function Login() {
+
   const navigate = useNavigate();
+
+  //state for loading
+  const [isLoading, setIsLoading] = useState(false);
+
+  {/* State to toggle password visibility */}
   const [showPassword, setShowPassword] = useState(false);
+
+  {/*react hook form functions*/}
   const {
     register,
     handleSubmit,
@@ -11,12 +19,41 @@ function Login() {
     reset,
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  {/* Function to handle form submission */}
+  const onSubmit = async (data) => {
+  try {
+    const response = await fetch(
+      "https://693fe406993d68afba6a10a6.mockapi.io/users"
+    );
+
+    const users = await response.json();
+
+    const user = users.find(
+      (u) => u.username === data.username && u.password === data.password
+    );
+
+    if (!user) {
+      alert("Invalid username or password");
+      return;
+    }
+
+    const session = {
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+      },
+      expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    };
+
+    localStorage.setItem("session", JSON.stringify(session));
+
     reset();
     navigate("/home");
-  };
-
+  } catch (error) {
+    console.error("Login error:", error);
+  }
+};
   // CSS
   const field =
     "flex items-center justify-center gap-[0.5em] rounded-[25px] p-[0.6em] border-none outline-none text-white bg-[#171717] shadow-[inset_2px_5px_10px_rgb(5,5,5)]";
@@ -117,9 +154,11 @@ function Login() {
               <div className="flex justify-center flex-row mt-[2.5em]">
                 <button
                   type="submit"
-                  className="p-[0.5em] pl-[1.1em] pr-[1.1em] rounded-[5px] mr-[0.5em] border-none outline-none transition-all duration-[0.4s] ease-in-out bg-[#252525] text-white hover:bg-black"
+                  className={`p-[0.5em] pl-[2.3em] pr-[2.3em] rounded-[5px] mr-[0.5em] border-none outline-none transition-all duration-[0.4s] ease-in-out bg-[#252525] text-white hover:bg-black ${
+                    isLoading ? "bg-gray-500 cursor-not-allowed" : "bg-[#252525] hover:bg-black"
+                  }`}
                 >
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  {isLoading ? "Logging In..." : "Login"}
                 </button>
                 {/* Sign Up Button */}
                 <button

@@ -2,8 +2,18 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 function Signup() {
-  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+
+  //state for loading
+  const [isLoading, setIsLoading] = useState(false);
+
+  //state for viewing password
+  const [showPassword, setShowPassword] = useState(false);
+
+  //state for viewing confirm password
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  //react hook form functions
   const {
     register,
     handleSubmit,
@@ -12,12 +22,46 @@ function Signup() {
     watch,
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    reset();
-    navigate("/Login");
+  // Function to handle form submission
+  const onSubmit = async (data) => {
+    try {
+      if (isLoading) return; // Prevent multiple submissions
+      setIsLoading(true);
+
+      // 1. Fetch existing users
+      const res = await fetch("https://693fe406993d68afba6a10a6.mockapi.io/users");
+      const users = await res.json();
+
+      // 2. Check if user already exists
+      const userExists = users.some(
+        (user) => user.username === data.username || user.email === data.email,
+      );
+
+      if (userExists) {
+        alert("Username or Email already exists!");
+        return;
+      }
+
+      // 3. Create new user (POST request)
+      await fetch("https://693fe406993d68afba6a10a6.mockapi.io/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      // 4. Success actions
+      reset();
+      navigate("/login");
+    }catch (error) {
+      console.log("Signup error:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
+  //CSS classes for styling
   const field =
     "flex items-center justify-center gap-[0.5em] rounded-[25px] p-[0.6em] border-none outline-none text-white bg-[#171717] shadow-[inset_2px_5px_10px_rgb(5,5,5)]";
 
@@ -37,6 +81,7 @@ function Signup() {
               className="flex flex-col gap-2.5 pl-[2em] pr-[2em] pb-[0.4em] bg-[#171717] rounded-[25px] transition-all duration-[0.4s] ease-in-out"
             >
               {/* Heading */}
+
               <p
                 id="heading"
                 className="text-center m-[2em] text-white text-[1.2em]"
@@ -178,14 +223,7 @@ function Signup() {
 
               {/*Confirm Password */}
               <div>
-                <div
-                  className={field}
-                  {...register("confirm_password", {
-                    required: "Confirm Password is required",
-                    validate: (value) =>
-                      value === watch("password") || "Passwords do not match",
-                  })}
-                >
+                <div className={field}>
                   <svg
                     viewBox="0 0 16 16"
                     fill="currentColor"
@@ -198,12 +236,17 @@ function Signup() {
                   </svg>
 
                   <input
-                    type={showPassword ? "text" : "password"}
+                    type={showConfirmPassword ? "text" : "password"}
                     className={input_field}
                     placeholder="Confirm Password"
+                    {...register("confirm_password", {
+                      required: "Password confirmation is required",
+                      validate: (value) =>
+                        value === watch("password") || "Passwords do not match",
+                    })}
                   />
                   <svg
-                    onClick={() => setShowPassword(!showPassword)}
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                     fill="currentColor"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 64 64"
@@ -224,9 +267,12 @@ function Signup() {
               <div className="flex flex-row gap-2 mt-[1em] mb-[1.5em]">
                 <button
                   type="submit"
-                  className="p-[0.5em] pl-[2.3em] pr-[2.3em] rounded-[5px] border-none outline-none transition-all duration-[0.4s] ease-in-out bg-[#252525] text-white hover:bg-black"
+                  disabled={isLoading}
+                  className={`p-[0.5em] pl-[2.3em] pr-[2.3em] rounded-[5px] border-none outline-none transition-all duration-[0.4s] ease-in-out bg-[#252525] text-white hover:bg-black ${
+                    isLoading ? "bg-gray-500 cursor-not-allowed" : "bg-[#252525] hover:bg-black"
+                  }`}
                 >
-                  Sign Up
+                  {isLoading ? "Signing Up..." : "Sign Up"}
                 </button>
 
                 {/* Login Button */}
