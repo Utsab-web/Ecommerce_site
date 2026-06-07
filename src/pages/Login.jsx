@@ -28,12 +28,15 @@ function Login() {
 
     const users = await response.json();
 
+    
+
     const user = users.find(
       (u) => u.username === data.username && u.password === data.password
     );
 
     if (!user) {
       alert("Invalid username or password");
+      reset();
       return;
     }
 
@@ -155,7 +158,6 @@ function Login() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  onClick={() => reset()}
                   className={`p-[0.5em] pl-[2.3em] pr-[2.3em] rounded-[5px] mr-[0.5em] border-none outline-none transition-all duration-[0.4s] ease-in-out bg-[#252525] text-white hover:bg-black ${
                     isLoading ? "bg-gray-500 cursor-not-allowed" : "bg-[#252525] hover:bg-black"
                   }`}

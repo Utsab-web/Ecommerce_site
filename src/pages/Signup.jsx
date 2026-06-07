@@ -53,7 +53,7 @@ function Signup() {
 
       // 4. Success actions
       reset();
-      navigate("/login");
+      navigate("/");
     }catch (error) {
       console.log("Signup error:", error);
     } finally {
@@ -278,7 +278,7 @@ function Signup() {
                 {/* Login Button */}
                 <button
                   type="button"
-                  onClick={() => navigate("/login")}
+                  onClick={() => navigate("/")}
                   className="p-[0.5em] pl-[2.3em] pr-[2.3em] rounded-[5px] border-none outline-none transition-all duration-[0.4s] ease-in-out bg-[#252525] text-white hover:bg-black"
                 >
                   Login
